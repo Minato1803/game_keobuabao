@@ -13,12 +13,15 @@ color = [(255,255,255), (0, 0, 255)] #BGR
 thickness = [2, 4]
 fontScale =[1,2]
 
-#vung anh
+#khởi tạo các biến
+defaultMove = "none"
+compMoveName = "none"
+winner = "waiting..."
 
+#vung anh
 
 def Moves(val):
     return CASES[val]
-
 
 def calcWinner(move1, move2):
     if move1 == move2:
@@ -47,9 +50,6 @@ model = load_model("rock-paper-scissors-model.h5")
 #chụp video
 cap = cv2.VideoCapture(0)
 
-defaultMove = "none"
-compMoveName = "none"
-winner = "waiting..."
 #thiết lập khung hình
 cap.set(3, 1280) #width
 cap.set(4, 720) #height
@@ -77,7 +77,11 @@ while cap.isOpened():
 
     # dự đoán input
     pred = model.predict(np.array([img]))
-    moveIndex = np.argmax(pred[0])
+    print("pred ")
+    print(np.argmax(pred))
+    print("pred[0] ")
+    print(np.argmax(pred[0]))
+    moveIndex = np.argmax(pred)
     playerMoveName = Moves(moveIndex)
 
     # dự đoán thắng thua
